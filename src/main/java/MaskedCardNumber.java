@@ -1,22 +1,25 @@
+import org.apache.log4j.Logger;
+
 public class MaskedCardNumber {
-    public static boolean maskedcardnumber(String name) {
-        if (name.matches("[0-9]*")) {
-            if (name.length() > 16) {
-                System.out.println("Entered card number contains more than 16 digits");
-            } else if (name.length() < 16) {
-                System.out.println("Entered card number contains less than 16 digits");
+    static Logger log = Logger.getLogger(MaskedCardNumber.class.getName());
+    public static boolean maskedcardnumber(String cardnumber) {
+        if (cardnumber.matches("[0-9]+")) {
+            if (cardnumber.length() > 16) {
+                log.info("Entered card number contains more than 16 digits");
+            } else if (cardnumber.length() < 16) {
+                log.info("Entered card number contains less than 16 digits");
             } else {
-                String str = name.substring(0, name.length() - 4);
-                System.out.println("Masked card number: " + (name.replace(str, "XXXXXXXXXXXX")));
+                String str = cardnumber.substring(0, cardnumber.length() - 4);
+                log.info("Masked card number: " + (cardnumber.replace(str, "XXXXXXXXXXXX")));
             }
+        } else if (cardnumber.equals("")) {
+            log.info("Entered card number is empty");
         } else {
-            System.out.println("Invalid string");
+            log.info("Invalid string");
         }
         return true;
     }
-
     public static void main(String[] args) {
         MaskedCardNumber.maskedcardnumber("1234567891234560");
-        System.out.println();
     }
 }
